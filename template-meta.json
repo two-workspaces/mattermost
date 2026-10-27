@@ -4,5 +4,7 @@
   "description": "Team chat on Postgres 17, system admin created on first boot",
   "category": "Other",
   "image": "https://raw.githubusercontent.com/two-workspaces/mattermost/main/icon.svg",
-  "id": "005af959-0389-4825-8ce7-534bc694312d"
+  "id": "005af959-0389-4825-8ce7-534bc694312d",
+  "published": true,
+  "card_desc": "Mattermost: open-source team chat, Slack alternative. Runs Mattermost Team Edition 12.0.1 on its own Postgres 17, with the system admin created on first boot and open sign-up off."
 }
