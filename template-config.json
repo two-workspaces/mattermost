@@ -1,0 +1,124 @@
+{
+ "buckets": {},
+ "services": {
+  "83907118-216e-40c4-9a49-796dfbb654ad": {
+   "icon": "https://raw.githubusercontent.com/two-workspaces/mattermost/main/icon.svg",
+   "name": "Mattermost",
+   "build": {
+    "dockerfilePath": "Dockerfile"
+   },
+   "deploy": {
+    "startCommand": null,
+    "healthcheckPath": "/api/v4/system/ping",
+    "healthcheckTimeout": 300,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+   },
+   "source": {
+    "repo": "https://github.com/two-workspaces/mattermost",
+    "rootDirectory": null
+   },
+   "networking": {
+    "serviceDomains": {
+     "<hasDomain>": {}
+    }
+   },
+   "volumeMounts": {
+    "92f68b5e-6fee-462e-98ae-dd52ce3b2c0e": {
+     "mountPath": "/mattermost/data"
+    }
+   },
+   "variables": {
+    "MM_ADMIN_EMAIL": {
+     "defaultValue": "",
+     "description": "Email of the system admin created on the first boot.",
+     "isOptional": false
+    },
+    "MM_ADMIN_USERNAME": {
+     "defaultValue": "sysadmin",
+     "description": "Username of the system admin created on the first boot.",
+     "isOptional": false
+    },
+    "MM_ADMIN_PASSWORD": {
+     "defaultValue": "${{secret(24, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+     "description": "System admin password, generated at deploy time and used on the first boot only. Change it in Mattermost afterwards (Profile > Security).",
+     "isOptional": false
+    },
+    "MM_SERVICESETTINGS_SITEURL": {
+     "defaultValue": "https://${{RAILWAY_PUBLIC_DOMAIN}}",
+     "description": "Public URL Mattermost builds links with. Change it if you add a custom domain.",
+     "isOptional": false
+    },
+    "MM_SQLSETTINGS_DRIVERNAME": {
+     "defaultValue": "postgres",
+     "description": "Database driver - leave as is.",
+     "isOptional": false
+    },
+    "MM_SQLSETTINGS_DATASOURCE": {
+     "defaultValue": "postgres://${{Postgres.POSTGRES_USER}}:${{Postgres.POSTGRES_PASSWORD}}@${{Postgres.RAILWAY_PRIVATE_DOMAIN}}:5432/${{Postgres.POSTGRES_DB}}?sslmode=disable&connect_timeout=10",
+     "description": "Postgres connection (private network)",
+     "isOptional": false
+    },
+    "MM_CONFIG": {
+     "defaultValue": "postgres://${{Postgres.POSTGRES_USER}}:${{Postgres.POSTGRES_PASSWORD}}@${{Postgres.RAILWAY_PRIVATE_DOMAIN}}:5432/${{Postgres.POSTGRES_DB}}?sslmode=disable&connect_timeout=10",
+     "description": "Keeps Mattermost's configuration in Postgres, so System Console changes survive redeploys.",
+     "isOptional": false
+    },
+    "PORT": {
+     "defaultValue": "8065",
+     "description": "HTTP port Mattermost listens on - leave as is.",
+     "isOptional": false
+    }
+   }
+  },
+  "c0d6a6fb-d7ea-4248-9ddf-c2cab56fc2a7": {
+   "icon": "https://devicons.railway.app/i/postgresql.svg",
+   "name": "Postgres",
+   "build": {},
+   "deploy": {
+    "startCommand": null,
+    "healthcheckPath": null,
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+   },
+   "source": {
+    "image": "postgres:17.11-alpine"
+   },
+   "networking": {
+    "serviceDomains": {}
+   },
+   "volumeMounts": {
+    "e18fbbf0-6608-4981-8e31-85b66fbce912": {
+     "mountPath": "/var/lib/postgresql/data"
+    }
+   },
+   "variables": {
+    "POSTGRES_DB": {
+     "defaultValue": "mattermost",
+     "description": "Database name",
+     "isOptional": false
+    },
+    "POSTGRES_USER": {
+     "defaultValue": "mattermost",
+     "description": "Database user",
+     "isOptional": false
+    },
+    "POSTGRES_PASSWORD": {
+     "defaultValue": "${{secret(32, \"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\")}}",
+     "description": "Auto-generated database password",
+     "isOptional": false
+    },
+    "PGDATA": {
+     "defaultValue": "/var/lib/postgresql/data/pgdata",
+     "description": "Data subdirectory - keeps Postgres happy on Railway volumes",
+     "isOptional": false
+    },
+    "RAILWAY_DEPLOYMENT_DRAINING_SECONDS": {
+     "defaultValue": "60",
+     "description": "Time for Postgres to shut down cleanly on redeploy",
+     "isOptional": false
+    }
+   }
+  }
+ }
+}
