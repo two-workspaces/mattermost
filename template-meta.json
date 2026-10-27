@@ -3,5 +3,6 @@
   "short_name": "Mattermost Team",
   "description": "Team chat on Postgres 17, system admin created on first boot",
   "category": "Other",
-  "image": "https://raw.githubusercontent.com/two-workspaces/mattermost/main/icon.svg"
+  "image": "https://raw.githubusercontent.com/two-workspaces/mattermost/main/icon.svg",
+  "id": "005af959-0389-4825-8ce7-534bc694312d"
 }
