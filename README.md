@@ -2,13 +2,13 @@
 
 [![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/mattermost-team?referralCode=sLjDXb&utm_medium=integration&utm_source=button&utm_campaign=mattermost-team)
 
-[Mattermost](https://mattermost.com/) is an open-source team chat platform, the self-hosted alternative to Slack. Teams get channels, threads, direct messages, file sharing, search, integrations, bots and webhooks, with desktop and mobile apps. This template runs Mattermost Team Edition 12.0.1 from the official image on its own Postgres 17. It creates the system admin on first boot and keeps public sign-up closed.
+[Mattermost](https://mattermost.com/) is an open-source team chat platform, the self-hosted alternative to Slack. Teams get channels, threads, direct messages, file sharing, search, integrations, bots and webhooks, with desktop and mobile apps. This template runs Mattermost Team Edition 12.0.2 from the official image on its own Postgres 17. It creates the system admin on first boot and keeps public sign-up closed.
 
 ## About Hosting Mattermost
 
 The stack is two services: Mattermost and Postgres.
 
-- **Upstream's image, pinned.** Mattermost runs the official `mattermost/mattermost-team-edition` image at a fixed release (12.0.1), not `latest`. A thin wrapper ([source](https://github.com/two-workspaces/mattermost)) adds one start script, nothing else.
+- **Upstream's image, pinned.** Mattermost runs the official `mattermost/mattermost-team-edition` image at a fixed release (12.0.2), not `latest`. A thin wrapper ([source](https://github.com/two-workspaces/mattermost)) adds one start script, nothing else.
 - **System admin on first boot.** The admin is created through Mattermost's own `mmctl` from `MM_ADMIN_EMAIL`, `MM_ADMIN_USERNAME` and the generated `MM_ADMIN_PASSWORD`. Nobody can claim the server by signing up first, and open sign-up stays off: new people join through invite links.
 - **Settings that stick.** Mattermost keeps its configuration in Postgres instead of a file in the container, so changes you make in the System Console survive redeploys.
 - **Files on a volume.** Uploads, images and plugins are stored on a volume at `/mattermost/data`.
