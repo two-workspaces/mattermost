@@ -1,7 +1,7 @@
 # Official distroless Mattermost image plus a static busybox, so the first
 # boot can fix volume ownership and seed the system admin through mmctl.
 FROM busybox:1.38.0-musl AS busybox
-FROM mattermost/mattermost-team-edition:12.0.2
+FROM mattermost/mattermost-team-edition:12.1.0
 COPY --from=busybox /bin/busybox /bin/busybox
 COPY --chmod=555 railway-start.sh /railway-start.sh
 USER root
